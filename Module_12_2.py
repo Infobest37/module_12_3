@@ -2,6 +2,7 @@ import unittest
 from Test_runn import Runner,Tournament
 
 class Tournament1(unittest.TestCase):
+    is_frozen = False
     @classmethod
     def setUpClass(cls):
         cls.all_results = {}
@@ -20,6 +21,7 @@ class Tournament1(unittest.TestCase):
         for key, value in cls.all_results.items():
             print(f"{key}: {value}")
 
+    @unittest.skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test_1(self):
         # Забег между Усэйном и Ником
 
@@ -30,6 +32,7 @@ class Tournament1(unittest.TestCase):
         Tournament1.all_results["Усэйн & Nik"] = {place: str(runner) for place, runner in result.items()}
         self.assertTrue(result[max(result.keys())] == self.runner3)
 
+    @unittest.skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test_2(self):
         # Забег Андреем и Ником
         tournament = Tournament(90,  self.runner2, self.runner3)
@@ -37,6 +40,8 @@ class Tournament1(unittest.TestCase):
         # Сохраняем результат в all_results
         Tournament1.all_results['Andrey & Nick'] = {place: str(runner) for place, runner in result.items()}
         self.assertTrue(result[max(result.keys())] == self.runner3)
+
+    @unittest.skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test_3(self):
         # Забег между Усэйном, Андреем и Ником
         tournament = Tournament(90, self.runner1, self.runner2, self.runner3)
